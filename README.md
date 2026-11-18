@@ -31,8 +31,9 @@ Remove: `./uninstall.sh` (add `--purge` to delete the history).
 
 - **VPN on/off** — any *up* interface of link type `tun`/WireGuard (e.g. `FlClashX`, `Meta`, `tun0`,
   `wg0`, `sing-box`). This covers Clash/Mihomo/FlClash/Hiddify/v2rayN TUN mode, OpenVPN, WireGuard.
-  Proxy-only (non-TUN) clients aren't detected as "on", but IP and country are still correct.
-- **IP and country** — every 45 s from `ipinfo.io`, falling back to `ip-api.com` and `ifconfig.co`.
+  **System proxy mode** (no TUN) also counts: if the GNOME system proxy is set to a local address
+  (`127.0.0.1:7890` etc.), the indicator shows VPN on and checks the IP *through that proxy*, as the browser does.
+- **IP and country** — every 30 s, and within ~3 s after the VPN interface or system proxy changes, from `ipinfo.io`, falling back to `ip-api.com` and `ifconfig.co`.
   The request follows your normal routing, so if your VPN rules send these domains direct, you'll see your real IP.
 - **History** — `~/.local/share/vpn-indicator/history.jsonl`, one JSON line per change of IP or VPN state.
 
@@ -45,7 +46,7 @@ e.g. `Exec=env VPN_INTERVAL=30 /home/you/.local/bin/vpn-indicator`):
 |---|---|---|
 | `VPN_IFACES` | auto | Comma-separated interfaces that mean "VPN on"; disables auto-detection |
 | `VPN_IGNORE` | `tailscale*,zt*,docker*,virbr*,veth*` | Interfaces never treated as VPN (globs) |
-| `VPN_INTERVAL` | `45` | Poll period, seconds |
+| `VPN_INTERVAL` | `30` | External IP check period, seconds (VPN on/off is noticed within 3 s regardless) |
 | `VPN_HIGHLIGHT` | `180` | How long the "IP changed" warning stays, seconds |
 | `VPN_LANG` | from `LANG` | `ru` or `en` |
 

@@ -73,6 +73,24 @@ class ClassifyTest(unittest.TestCase):
         self.assertEqual(vi.classify({"ip": "1.1.1.1", "vpn": False}, False, "3.3.3.3"), (True, None))
 
 
+class ProxyTest(unittest.TestCase):
+    def test_manual_local_http(self):
+        url = "http://127.0.0.1:7890"
+        self.assertEqual(vi.proxy_from_settings("manual", "127.0.0.1", 7890, "", 0),
+                         ({"http": url, "https": url}, True))
+
+    def test_socks_only_used_as_mixed_port(self):
+        self.assertEqual(vi.proxy_from_settings("manual", "", 0, "localhost", 7891)[0]["https"],
+                         "http://localhost:7891")
+
+    def test_remote_proxy_is_not_vpn(self):
+        self.assertFalse(vi.proxy_from_settings("manual", "proxy.corp", 3128, "", 0)[1])
+
+    def test_disabled(self):
+        self.assertEqual(vi.proxy_from_settings("none", "127.0.0.1", 7890, "127.0.0.1", 7890), (None, False))
+        self.assertEqual(vi.proxy_from_settings("auto", "", 0, "", 0), (None, False))
+
+
 class FormatTest(unittest.TestCase):
     def test_label(self):
         t = vi.TEXTS["en"]
