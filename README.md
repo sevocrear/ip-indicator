@@ -17,7 +17,7 @@ Ubuntu / Debian with GNOME (X11 or Wayland):
 
 ```bash
 sudo apt install python3-gi gir1.2-ayatanaappindicator3-0.1 libnotify-bin   # usually preinstalled on Ubuntu
-git clone <this repo> && cd vpn-indicator
+git clone https://github.com/sevocrear/vpn-indicator.git && cd vpn-indicator
 ./install.sh
 ```
 
