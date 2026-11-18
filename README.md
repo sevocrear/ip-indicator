@@ -1,4 +1,4 @@
-# vpn-indicator
+# ip-indicator
 
 VPN status, external IP and country in the GNOME top bar — with IP history and a warning
 when your IP changes while the VPN is on.
@@ -17,7 +17,7 @@ Ubuntu / Debian with GNOME (X11 or Wayland):
 
 ```bash
 sudo apt install python3-gi gir1.2-ayatanaappindicator3-0.1 libnotify-bin   # usually preinstalled on Ubuntu
-git clone https://github.com/sevocrear/vpn-indicator.git && cd vpn-indicator
+git clone https://github.com/sevocrear/ip-indicator.git && cd ip-indicator
 ./install.sh
 ```
 
